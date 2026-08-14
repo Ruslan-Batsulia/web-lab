@@ -1,10 +1,16 @@
-import { Footer, Header } from "@/src/components";
+import {
+  Header,
+  ToDoList,
+  Footer,
+} from "@/src/components";
 
 export default function Home() {
   return (
     <>
       <Header />
-      <main></main>
+      <main>
+        <ToDoList />
+      </main>
       <Footer />
     </>
   );

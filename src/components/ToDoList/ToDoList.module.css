@@ -1,0 +1,15 @@
+.todolist {
+  padding: 32px 0;
+}
+
+@media (min-width: 768px) {
+  .todolist {
+    padding: 48px 0;
+  }
+}
+
+@media (min-width: 1440px) {
+  .todolist {
+    padding: 60px 0;
+  }
+}
