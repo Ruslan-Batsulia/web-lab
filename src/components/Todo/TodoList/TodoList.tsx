@@ -2,54 +2,28 @@ import TodoItem from "./../TodoItem/TodoItem";
 
 import styles from "./TodoList.module.css";
 
-export default function TodoList() {
-  const hasTasks: boolean = true;
+interface TodoListProps {
+  tasks: {
+    id: string;
+    title: string;
+    isDone: boolean;
+  }[];
+}
 
-  if (!hasTasks) {
-    return (
-      <div className={styles.emptyMessage}></div>
-    );
-  }
+export default function TodoList(props: TodoListProps) {
+  const {
+    tasks = [],
+  } = props;
 
-  return (
+  return ((tasks.length > 0) ? (
     <ul className={styles.list}>
-      <TodoItem />
-      <li className={styles.item}>
-        <input
-          className={styles.checkBox}
-          id="task-2"
-          type="checkbox"
-        />
-
-        <label
-          className={styles.label}
-          htmlFor="task-2"
-        >
-          {"Task 2"}
-        </label>
-
-        <button
-          className={styles.deleteButton}
-          aria-label="Delete"
-          title="Delete"
-        >
-          <svg
-            width="20"
-            height="20"
-            viewBox="0 0 20 20"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M15 5L5 15M5 5L15 15"
-              stroke="#757575"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        </button>
-      </li>
+      {tasks.map((task) => (
+        <TodoItem key={task.id} {...task} />
+      ))}
     </ul>
-  );
+  ) : (
+    <p className={styles.emptyMessage}>
+      {"No tasks yet"}
+    </p>
+  ));
 }

@@ -6,7 +6,10 @@ import styles from "./AddTaskForm.module.css";
 export default function AddTaskForm() {
   return (
     <form className={styles.form}>
-      <Field />
+      <Field
+        id="new-task"
+        label="New task title"
+      />
       <AddButton />
     </form>
   );

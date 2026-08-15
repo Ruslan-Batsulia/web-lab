@@ -20,10 +20,5 @@
     &:active {
       scale: 0.95;
     }
-
-    &:not(.is-visible) {
-      opacity: 0;
-      visibility: hidden;
-    }
   }
 }

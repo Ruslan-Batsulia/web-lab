@@ -1,20 +1,33 @@
 import styles from "./TodoItem.module.css";
 
-export default function TodoItem() {
+interface TodoItemProps {
+  id: string;
+  title: string;
+  isDone: boolean;
+}
+
+export default function TodoItem(props: TodoItemProps) {
+  const {
+    id,
+    title,
+    isDone = false,
+  } = props;
+
   return (
     <li className={styles.item}>
       <input
         className={styles.checkBox}
-        id="task-1"
+        id={id}
         type="checkbox"
-        checked
+        checked={isDone}
+        readOnly
       />
 
       <label
         className={styles.label}
-        htmlFor="task-1"
+        htmlFor={id}
       >
-        {"Task 1"}
+        {title}
       </label>
 
       <button

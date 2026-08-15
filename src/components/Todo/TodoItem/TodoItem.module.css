@@ -43,7 +43,7 @@
       background-color: rgb(44 44 44);
       border-color: rgb(44 44 44);
 
-      & + .checkBoxLabel {
+      & + .label {
         color: rgb(117 117 117);
         text-decoration: line-through;
       }
