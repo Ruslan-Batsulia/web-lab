@@ -1,4 +1,7 @@
-import { Footer, Header } from "@/src/components";
+import {
+  Header,
+  Footer,
+} from "@/src/components";
 
 export default function Home() {
   return (

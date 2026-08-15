@@ -7,5 +7,5 @@ export default function Header() {
         {"WebLab"}
       </div>
     </header>
-  )
+  );
 }
