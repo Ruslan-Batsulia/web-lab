@@ -1,3 +1,3 @@
 export { default as Header } from "./Header/Header";
 export { default as Footer } from "./Footer/Footer";
-export { default as ToDoList } from "./ToDoList/ToDoList";
+export { default as Todo } from "./Todo/Todo";

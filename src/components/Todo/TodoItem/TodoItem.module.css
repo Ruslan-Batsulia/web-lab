@@ -1,0 +1,109 @@
+.item {
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+  padding-left: 10px;
+  background-color: transparent;
+  border: 1px solid rgb(217 217 217);
+  border-radius: 8px;
+  transition: all 0.3s ease;
+
+  &:hover {
+    background-color: rgb(245 245 245);
+  }
+
+  &.is-disappearing {
+    opacity: 0;
+    translate: 0 -75%;
+    transition: all 0.6s ease;
+    pointer-events: none;
+
+    &:not(:first-child) {
+      translate: 0 calc(100% - 8px);
+      transition-delay: 0.3s;
+      transition: all 0.3s ease;
+      pointer-events: none;
+    }
+  }
+
+  .checkBox {
+    flex-shrink: 0;
+    appearance: none;
+    position: relative;
+
+    width: 20px;
+    height: 20px;
+    margin: 0;
+
+    background-color: transparent;
+    border: 1px solid rgb(117 117 117);
+    border-radius: 4px;
+
+    &:checked {
+      background-color: rgb(44 44 44);
+      border-color: rgb(44 44 44);
+
+      & + .checkBoxLabel {
+        color: rgb(117 117 117);
+        text-decoration: line-through;
+      }
+    }
+
+    &:not(:checked) {
+      &::after {
+        opacity: 0;
+      }
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+
+      top: 50%;
+      left: 50%;
+      translate: -50% -50%;
+
+      width: 16px;
+      height: 16px;
+
+      background:
+        url("./../../../../public/images/svg-icons/icon-check_white.svg")
+        center/contain no-repeat;
+    }
+  }
+
+  .label {
+    width: 100%;
+    pointer-events: none;
+  }
+
+  .deleteButton {
+    flex-shrink: 0;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+
+    width: 44px;
+    height: 44px;
+    margin-left: auto;
+
+    color: rgb(117 117 117);
+    background-color: transparent;
+    border-radius: inherit;
+    transition: all 0.3s ease, scale 0s;
+
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgb(200 200 200);
+    }
+
+    &:active {
+      scale: 0.95;
+    }
+
+    * {
+      pointer-events: none;
+    }
+  }
+}

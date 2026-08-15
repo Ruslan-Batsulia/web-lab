@@ -1,6 +1,6 @@
-import styles from "./ToDoInfo.module.css";
+import styles from "./TodoInfo.module.css";
 
-export default function ToDoInfo() {
+export default function TodoInfo() {
   return (
     <div className={styles.info}>
       <div className={styles.totalTasks}>

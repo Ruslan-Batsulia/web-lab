@@ -1,6 +1,6 @@
 import {
   Header,
-  ToDoList,
+  Todo,
   Footer,
 } from "@/src/components";
 
@@ -9,7 +9,7 @@ export default function Home() {
     <>
       <Header />
       <main>
-        <ToDoList />
+        <Todo />
       </main>
       <Footer />
     </>
