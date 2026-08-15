@@ -164,7 +164,7 @@
 
   .item,
   .deleteButton {
-    transition: all 0.3s ease;
+    transition: all 0.3s ease, scale 0s;
   }
 
   .item {
