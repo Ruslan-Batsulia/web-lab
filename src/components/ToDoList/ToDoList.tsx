@@ -1,3 +1,7 @@
+import ToDoInfo from "./ToDoInfo/ToDoInfo";
+import AddTaskForm from "./AddTaskForm/AddTaskForm";
+import SearchTaskForm from "./SearchTaskForm/SearchTaskForm";
+
 import styles from "./ToDoList.module.css";
 
 export default function ToDoList() {
@@ -7,58 +11,9 @@ export default function ToDoList() {
         <div className={styles.todo}>
           <h1 className={styles.title}>{"To Do List"}</h1>
 
-          <form className={styles.form}>
-            <div className={styles.field}>
-              <label
-                className={styles.label}
-                htmlFor="new-task"
-              >
-                {"New task"}
-              </label>
-
-              <input
-                className={styles.input}
-                id="new-task"
-                placeholder=" "
-                autoComplete="off"
-              />
-            </div>
-
-            <button className={styles.button} type="submit">{"Add"}</button>
-          </form>
-
-          <form className={styles.form}>
-            <div className={styles.field}>
-              <label
-                className={styles.label}
-                htmlFor="search-task"
-              >
-                {"Search task"}
-              </label>
-
-              <input
-                className={styles.input}
-                id="search-task"
-                placeholder=" "
-                autoComplete="off"
-                type="search"
-              />
-            </div>
-          </form>
-
-          <div className={styles.info}>
-            <div className={styles.totalTasks}>
-              {"Total tasks: "}
-              <span>{0}</span>
-            </div>
-
-            <button
-              type="button"
-              className={styles.deleteAllButton}
-            >
-              {"Delete all"}
-            </button>
-          </div>
+          <AddTaskForm />
+          <SearchTaskForm />
+          <ToDoInfo />
 
           <ul className={styles.list}>
             <li className={styles.item}>
