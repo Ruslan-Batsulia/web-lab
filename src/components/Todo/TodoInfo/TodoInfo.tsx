@@ -2,11 +2,13 @@ import styles from "./TodoInfo.module.css";
 
 interface TodoInfoProps {
   total: number;
+  onDeleteAllButtonClick: () => void;
 }
 
 export default function TodoInfo(props: TodoInfoProps) {
   const {
     total,
+    onDeleteAllButtonClick,
   } = props;
 
   return (
@@ -20,6 +22,7 @@ export default function TodoInfo(props: TodoInfoProps) {
         <button
           type="button"
           className={styles.deleteAllButton}
+          onClick={onDeleteAllButtonClick}
         >
           {"Delete all"}
         </button>

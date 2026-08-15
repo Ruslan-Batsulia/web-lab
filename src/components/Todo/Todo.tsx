@@ -1,3 +1,5 @@
+"use client";
+
 import TodoInfo from "./TodoInfo/TodoInfo";
 import TodoList from "./TodoList/TodoList";
 import AddTaskForm from "./AddTaskForm/AddTaskForm";
@@ -24,15 +26,48 @@ export default function Todo() {
     isDone: false,
   }];
 
+  const deleteAllTasks = () => {
+    console.log("Видаляємо всі задачі");
+  }
+
+  const deleteTask = (taskId: string) => {
+    console.log("Видаляємо задачу з id:", taskId);
+  }
+
+  const toggleTaskComplete = (
+    taskId: string,
+    isDone: boolean,
+  ) => {
+    console.log(
+      "Задачу", taskId,
+      isDone ? "виконано" : "не виконано"
+    );
+  }
+
+  const filterTask = (query: string) => {
+    console.log("Пошук:", query);
+  }
+
+  const addTask = () => {
+    console.log("Задача додана");
+  }
+
   return (
     <section className={styles.todolist}>
       <div className={"container"}>
         <div className={styles.todo}>
           <h1 className={styles.title}>{"To Do List"}</h1>
-          <AddTaskForm />
-          <SearchTaskForm />
-          <TodoInfo total={tasks.length} />
-          <TodoList tasks={tasks} />
+          <AddTaskForm addTask={addTask} />
+          <SearchTaskForm onSearchInput={filterTask} />
+          <TodoInfo
+            total={tasks.length}
+            onDeleteAllButtonClick={deleteAllTasks}
+          />
+          <TodoList
+            tasks={tasks}
+            onDeleteButtonClick={deleteTask}
+            onTaskCompleteChange={toggleTaskComplete}
+          />
         </div>
       </div>
     </section>

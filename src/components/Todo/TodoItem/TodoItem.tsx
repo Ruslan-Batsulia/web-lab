@@ -4,6 +4,11 @@ interface TodoItemProps {
   id: string;
   title: string;
   isDone: boolean;
+  onDeleteButtonClick: (taskId: string) => void;
+  onTaskCompleteChange: (
+    taskId: string,
+    isDone: boolean,
+  ) => void;
 }
 
 export default function TodoItem(props: TodoItemProps) {
@@ -11,6 +16,8 @@ export default function TodoItem(props: TodoItemProps) {
     id,
     title,
     isDone = false,
+    onDeleteButtonClick,
+    onTaskCompleteChange,
   } = props;
 
   return (
@@ -20,7 +27,9 @@ export default function TodoItem(props: TodoItemProps) {
         id={id}
         type="checkbox"
         checked={isDone}
-        readOnly
+        onChange={({target}) => {
+          onTaskCompleteChange(id, target.checked);
+        }}
       />
 
       <label
@@ -34,6 +43,7 @@ export default function TodoItem(props: TodoItemProps) {
         className={styles.deleteButton}
         aria-label="Delete"
         title="Delete"
+        onClick={() => onDeleteButtonClick(id)}
       >
         <svg
           width="20"
