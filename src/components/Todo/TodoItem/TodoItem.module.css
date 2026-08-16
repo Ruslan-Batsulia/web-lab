@@ -39,6 +39,8 @@
     border: 1px solid rgb(117 117 117);
     border-radius: 4px;
 
+    cursor: pointer;
+
     &:checked {
       background-color: rgb(44 44 44);
       border-color: rgb(44 44 44);

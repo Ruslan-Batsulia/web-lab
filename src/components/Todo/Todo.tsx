@@ -1,5 +1,6 @@
 "use client";
 
+import { useState } from "react";
 import TodoInfo from "./TodoInfo/TodoInfo";
 import TodoList from "./TodoList/TodoList";
 import AddTaskForm from "./AddTaskForm/AddTaskForm";
@@ -8,40 +9,33 @@ import SearchTaskForm from "./SearchTaskForm/SearchTaskForm";
 import styles from "./Todo.module.css";
 
 export default function Todo() {
-  const tasks: {
+  const [tasks, setTasks] = useState<{
     id: string;
     title: string;
     isDone: boolean;
-  }[] = [{
-    id: "task-1",
-    title: "Task 1",
-    isDone: true,
-  }, {
-    id: "task-2",
-    title: "Task 2",
-    isDone: true,
-  }, {
-    id: "task-3",
-    title: "Task 3",
-    isDone: false,
-  }];
+  }[]>([]);
+
+  const [newTaskTitle, setNewTaskTitle] = useState<string>("");
 
   const deleteAllTasks = () => {
-    console.log("Видаляємо всі задачі");
+    setTasks([]);
   }
 
   const deleteTask = (taskId: string) => {
-    console.log("Видаляємо задачу з id:", taskId);
+    setTasks(tasks.filter((task) => task.id !== taskId));
   }
 
   const toggleTaskComplete = (
     taskId: string,
     isDone: boolean,
   ) => {
-    console.log(
-      "Задачу", taskId,
-      isDone ? "виконано" : "не виконано"
-    );
+    setTasks(tasks.map((task) => {
+      if (task.id === taskId) {
+        return { ...task, isDone }
+      }
+
+      return task;
+    }));
   }
 
   const filterTask = (query: string) => {
@@ -49,7 +43,20 @@ export default function Todo() {
   }
 
   const addTask = () => {
-    console.log("Задача додана");
+    if (newTaskTitle.trim().length > 0) {
+      const newTask: {
+        id: string;
+        title: string;
+        isDone: boolean;
+      } = {
+        id: crypto?.randomUUID() ?? Date.now().toString(),
+        title: newTaskTitle,
+        isDone: false,
+      };
+
+      setTasks([...tasks, newTask]);
+      setNewTaskTitle("");
+    }
   }
 
   return (
@@ -57,7 +64,11 @@ export default function Todo() {
       <div className={"container"}>
         <div className={styles.todo}>
           <h1 className={styles.title}>{"To Do List"}</h1>
-          <AddTaskForm addTask={addTask} />
+          <AddTaskForm
+            addTask={addTask}
+            newTaskTitle={newTaskTitle}
+            setNewTaskTitle={setNewTaskTitle}
+          />
           <SearchTaskForm onSearchInput={filterTask} />
           <TodoInfo
             total={tasks.length}

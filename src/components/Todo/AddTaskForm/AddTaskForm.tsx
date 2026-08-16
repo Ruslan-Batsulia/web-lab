@@ -5,11 +5,15 @@ import styles from "./AddTaskForm.module.css";
 
 interface AddTaskFormProps {
   addTask: () => void;
+  newTaskTitle: string;
+  setNewTaskTitle: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function AddTaskForm(props: AddTaskFormProps) {
   const {
     addTask,
+    newTaskTitle,
+    setNewTaskTitle,
   } = props;
 
   const onSubmit = (event: React.SubmitEvent<HTMLFormElement>) => {
@@ -22,6 +26,8 @@ export default function AddTaskForm(props: AddTaskFormProps) {
       <Field
         id="new-task"
         label="New task title"
+        value={newTaskTitle}
+        onInput={({currentTarget}) => setNewTaskTitle(currentTarget.value)}
       />
       <AddButton />
     </form>

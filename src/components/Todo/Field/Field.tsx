@@ -4,6 +4,7 @@ interface FieldProps {
   id: string;
   label: string;
   type?: "text" | "search";
+  value?: string;
   onInput?: (event: React.InputEvent<HTMLInputElement>) => void;
 }
 
@@ -12,6 +13,7 @@ export default function Field(props: FieldProps) {
     id,
     label,
     type = "text",
+    value = "",
     onInput,
   } = props;
 
@@ -30,6 +32,7 @@ export default function Field(props: FieldProps) {
         placeholder=" "
         autoComplete="off"
         type={type}
+        value={value}
         onInput={onInput}
       />
     </div>
