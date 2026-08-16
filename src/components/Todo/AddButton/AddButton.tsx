@@ -6,7 +6,9 @@ export default function AddButton() {
       className={styles.button}
       type="submit"
     >
-      {"Add"}
+      <span className={styles.buttonInner}>
+        {"Add"}
+      </span>
     </button>
   );
 }

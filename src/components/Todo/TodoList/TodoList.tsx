@@ -8,6 +8,11 @@ interface TodoListProps {
     title: string;
     isDone: boolean;
   }[];
+  filteredTasks: {
+    id: string;
+    title: string;
+    isDone: boolean;
+  }[] | null;
   onDeleteButtonClick: (taskId: string) => void;
   onTaskCompleteChange: (
     taskId: string,
@@ -18,13 +23,33 @@ interface TodoListProps {
 export default function TodoList(props: TodoListProps) {
   const {
     tasks = [],
+    filteredTasks,
     onDeleteButtonClick,
     onTaskCompleteChange,
   } = props;
 
-  return ((tasks.length > 0) ? (
+  const hasTasks: boolean = tasks.length > 0;
+  const isEmptyFilteredTasks = filteredTasks?.length === 0;
+
+  if (!hasTasks) {
+    return (
+      <p className={styles.emptyMessage}>
+        {"No tasks yet"}
+      </p>
+    );
+  }
+
+  if (hasTasks && isEmptyFilteredTasks) {
+    return (
+      <p className={styles.emptyMessage}>
+        {"Tasks not found"}
+      </p>
+    );
+  }
+
+  return (
     <ul className={styles.list}>
-      {tasks.map((task) => (
+      {(filteredTasks ?? tasks).map((task) => (
         <TodoItem
           key={task.id}
           onDeleteButtonClick={onDeleteButtonClick}
@@ -33,9 +58,5 @@ export default function TodoList(props: TodoListProps) {
         />
       ))}
     </ul>
-  ) : (
-    <p className={styles.emptyMessage}>
-      {"No tasks yet"}
-    </p>
-  ));
+  );
 }

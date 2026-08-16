@@ -27,7 +27,9 @@ export default function AddTaskForm(props: AddTaskFormProps) {
         id="new-task"
         label="New task title"
         value={newTaskTitle}
-        onInput={({currentTarget}) => setNewTaskTitle(currentTarget.value)}
+        onInput={({currentTarget}) => {
+          return setNewTaskTitle(currentTarget.value);
+        }}
       />
       <AddButton />
     </form>

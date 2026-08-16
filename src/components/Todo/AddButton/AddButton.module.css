@@ -1,19 +1,20 @@
 .button {
-  display: inline-flex;
-  justify-content: center;
-  align-items: center;
+  .buttonInner {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
 
-  height: 40px;
-  padding: 12px;
+    height: 40px;
+    padding: 12px;
 
-  color: rgb(245 245 245);
-  background-color: rgb(31 136 61);
-  border-radius: 8px;
-  transition: all 0.3s ease, scale 0s;
+    color: rgb(245 245 245);
+    background-color: rgb(31 136 61);
+    border-radius: 8px;
 
-  cursor: pointer;
+    cursor: pointer;
+  }
 
-  &:active {
+  &:active .buttonInner {
     scale: 0.9;
   }
 }

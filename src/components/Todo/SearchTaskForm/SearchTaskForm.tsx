@@ -2,12 +2,14 @@ import Field from "../Field/Field";
 import styles from "./SearchTaskForm.module.css";
 
 interface SearchTaskFormProps {
-  onSearchInput: (query: string) => void;
+  searchQuery: string;
+  setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export default function SearchTaskForm(props: SearchTaskFormProps) {
   const {
-    onSearchInput,
+    searchQuery,
+    setSearchQuery,
   } = props;
 
   return (
@@ -19,7 +21,8 @@ export default function SearchTaskForm(props: SearchTaskFormProps) {
         id="search-task"
         label="Search task"
         type="search"
-        onInput={({currentTarget}) => onSearchInput(currentTarget.value)}
+        value={searchQuery}
+        onInput={({currentTarget}) => setSearchQuery(currentTarget.value)}
       />
     </form>
   );

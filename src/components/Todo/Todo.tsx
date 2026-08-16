@@ -1,8 +1,8 @@
 "use client";
 
-import { useState } from "react";
 import TodoInfo from "./TodoInfo/TodoInfo";
 import TodoList from "./TodoList/TodoList";
+import { useEffect, useState } from "react";
 import AddTaskForm from "./AddTaskForm/AddTaskForm";
 import SearchTaskForm from "./SearchTaskForm/SearchTaskForm";
 
@@ -14,32 +14,43 @@ export default function Todo() {
     title: string;
     isDone: boolean;
   }[]>([]);
-
   const [newTaskTitle, setNewTaskTitle] = useState<string>("");
+  const [searchQuery, setSearchQuery] = useState<string>("");
 
   const deleteAllTasks = () => {
     setTasks([]);
+    localStorage.setItem("tasks", JSON.stringify([]));
   }
 
   const deleteTask = (taskId: string) => {
-    setTasks(tasks.filter((task) => task.id !== taskId));
+    const updatedTasks: {
+      id: string;
+      title: string;
+      isDone: boolean;
+    }[] = tasks.filter((task) => task.id !== taskId);
+
+    setTasks(updatedTasks);
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
   }
 
   const toggleTaskComplete = (
     taskId: string,
     isDone: boolean,
   ) => {
-    setTasks(tasks.map((task) => {
+    const updatedTasks: {
+      id: string;
+      title: string;
+      isDone: boolean;
+    }[] = tasks.map((task) => {
       if (task.id === taskId) {
         return { ...task, isDone }
       }
 
       return task;
-    }));
-  }
+    });
 
-  const filterTask = (query: string) => {
-    console.log("Пошук:", query);
+    setTasks(updatedTasks);
+    localStorage.setItem("tasks", JSON.stringify(updatedTasks));
   }
 
   const addTask = () => {
@@ -54,10 +65,31 @@ export default function Todo() {
         isDone: false,
       };
 
-      setTasks([...tasks, newTask]);
+      const updatedTasks: {
+        id: string;
+        title: string;
+        isDone: boolean;
+      }[] = [...tasks, newTask];
+      setTasks(updatedTasks);
       setNewTaskTitle("");
+      setSearchQuery("");
+      localStorage.setItem("tasks", JSON.stringify(updatedTasks));
     }
   }
+
+  useEffect(() => {
+    const savedTasks: string | null = localStorage.getItem("tasks");
+
+    if (savedTasks) {
+      setTasks(JSON.parse(savedTasks));
+    }
+  }, []);
+
+  const clearSearchQuery: string = searchQuery.trim().toLowerCase();
+  const filteredTasks: { id: string; title: string; isDone: boolean; }[] | null
+    = clearSearchQuery.length > 0
+    ? tasks.filter(({title}) => title.toLowerCase().includes(clearSearchQuery))
+    : null;
 
   return (
     <section className={styles.todolist}>
@@ -69,13 +101,17 @@ export default function Todo() {
             newTaskTitle={newTaskTitle}
             setNewTaskTitle={setNewTaskTitle}
           />
-          <SearchTaskForm onSearchInput={filterTask} />
+          <SearchTaskForm
+            searchQuery={searchQuery}
+            setSearchQuery={setSearchQuery}
+          />
           <TodoInfo
             total={tasks.length}
             onDeleteAllButtonClick={deleteAllTasks}
           />
           <TodoList
             tasks={tasks}
+            filteredTasks={filteredTasks}
             onDeleteButtonClick={deleteTask}
             onTaskCompleteChange={toggleTaskComplete}
           />
